@@ -1,17 +1,36 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import privateApiClient from "../../../api/privateApiClient";
 
 const Profile = () => {
-  const [profile, setProfileData] = useState();
   const profileData = async () => {
     const data = await privateApiClient("/profile", "GET", null);
-    console.log(data);
+    return data;
   };
+  const query = useQuery({
+    queryKey: ["profileData", 1],
+    queryFn: profileData,
+  });
+
+  if (query.isFetching && query.isPending) {
+    console.log("Loading Profile...");
+  } else if (query.isFetching) {
+    console.log("Background Refetch is happening");
+  } else {
+    console.log(query.data);
+  }
 
   return (
     <main>
-      <button onClick={profileData}>Get Data</button>
-      {/* {profile.email} */}
+      <button
+        onClick={() => {
+          query.refetch();
+        }}
+      >
+        Refresh
+      </button>
+      <p>{query.isPending ? "Fetching the data" : query.data.firstName}</p>
+      <p>{query.isPending ? "Fetching the data" : query.data.lastName}</p>
+      <p>{query.isPending ? "Fetching the data" : query.data.email}</p>
     </main>
   );
 };

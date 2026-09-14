@@ -4,9 +4,17 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./global.css";
 
-const queryClinet = new QueryClient();
+const query = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 300000,
+      gcTime: 1800000,
+    },
+  },
+});
+
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClinet}>
+  <QueryClientProvider client={query}>
     <StrictMode>
       <App />
     </StrictMode>
