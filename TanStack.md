@@ -75,3 +75,20 @@ Variables type
    . reset something
    . refresh some UI
    . perform cleanup
+
+8. setQueryData -> it will directly change the cachedata in tanstack query.
+   it expects an queryKey and updater fn
+   query key -> identify the cacheKey
+   updater -> what should be the cache becomes
+
+9. refetch -> it will refetch the api and store the cacheData same as the initaly cache data store process. it is works in Backgriund
+
+10. optimistic updates which means direct update now then update in db and check if fails rollback to normal previous state.
+    .update immediatley now
+    . rollback method will rollback to previous state.
+
+11. placeHolderData -> it is for only useQuery things beacuse get operation and also basicaly it used to take the previous data.
+
+- automatically it wil call the previous data it handle by the tanstack query no need of implementation.
+
+12. PreFetching Queries ->

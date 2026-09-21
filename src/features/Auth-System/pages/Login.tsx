@@ -36,7 +36,7 @@ const Login = () => {
     }
     setTimeout(() => {
       mutaiton.reset();
-    }, 1000);
+    }, 5000);
   };
 
   const mutaiton = useMutation({
